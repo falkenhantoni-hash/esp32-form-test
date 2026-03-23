@@ -190,15 +190,26 @@ a {
     <div><img id="kids-img" src="img/kids.png" alt="Schul-Cloud Brandenburg"></div>
 </div>
 <div id="login">
-    <div class="heading">Login für registrierte Nutzer:innen</div>
-    <hr>
-    <div class="llog">E-Mail / Nutzername</div>
-    <input class="inp" type="text" id="emails" name="emails" placeholder="E-Mail / Nutzername">
-    <div class="llog">Passwort</div>    
-    <input class="inp" type="password" id="password" name="password" placeholder="Passwort">
-    <div id="options"><img id="drop" src="img/drop.svg"/> Mehr Optionen</div>
-    <button id="submit" type="submit">Login</button>
-    <div id="forgot" class="llog"> <a href="#">Passwort vergessen?</a></div>
+
+<form id="loginForm">
+
+<div class="heading">Login für registrierte Nutzer:innen</div>
+<hr>
+
+<div class="llog">E-Mail / Nutzername</div>
+<input class="inp" type="text" name="emails" placeholder="E-Mail / Nutzername">
+
+<div class="llog">Passwort</div>    
+<input class="inp" type="password" name="password" placeholder="Passwort">
+
+<button id="submit" type="submit">Login</button>
+
+<div id="forgot" class="llog">
+<a href="#">Passwort vergessen?</a>
+</div>
+    
+</form>
+
 </div>
 <div id="support">
     <div class="heading">Allgemeine Anfragen & Support</div>
@@ -218,6 +229,8 @@ a {
 </div>
 
 <script>
+window.addEventListener("DOMContentLoaded", function() {
+
 document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -247,7 +260,11 @@ document.getElementById("loginForm").addEventListener("submit", function(e) {
     })
     .catch(error => {
         console.error("Fehler:", error);
+        alert("Fehler beim Senden");
     });
+
+});
+
 });
 </script>
 
